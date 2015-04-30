@@ -43,7 +43,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 )
 INSTALLED_APPS += ("debug_toolbar", )
+INSTALLED_APPS += ("django_behave", )
 INSTALLED_APPS += ("short", )
+
+#TEST_RUNNER = 'django_behave.runner.DjangoBehaveTestSuiteRunner'
+
 INTERNAL_IPS = ("127.0.0.1",)
 
 MIDDLEWARE_CLASSES = (
