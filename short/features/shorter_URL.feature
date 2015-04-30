@@ -5,11 +5,11 @@ Feature: Shorter URL
 
 		Scenario: through a webpage, obtain a shorter URL
 				Given I go the the homepage
-				When I post a URL in the form
+				When I post the URL "www.comune.torino.it/circ4/" in the form
 				Then I will see the resulting shorter URL
 
 		Scenario: through a RESTful API, obtain a shorter URL
 				Given I call the api properly
-				When I post a URL to the server
+				When I post the URL "www.comune.torino.it/circ4/" to the server
 				Then I will receive the resulting shorter URL
 

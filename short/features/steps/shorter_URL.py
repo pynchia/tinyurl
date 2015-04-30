@@ -2,15 +2,17 @@ from behave import *
 
 
 @given(u'I go the the homepage')
-def impl(context):
-    assert False
+def go_to_homepage(context):
+    context.browser.get(context.server_url)
+    assert "URL shortener" in context.browser.title
 
 
-@when(u'I post a URL in the form')
-def impl(context):
+@when(u'I post the URL "{long_url}" in the form')
+def post_long_url(context, long_url):
+    context.browser.find_element_by_id('id_long_url').send_keys(long_url)
     assert False
 
 
 @then(u'I will see the resulting shorter URL')
-def impl(context):
+def see_short_url(context):
     assert False
