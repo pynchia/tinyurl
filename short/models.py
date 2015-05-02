@@ -1,6 +1,5 @@
 from django.db import models
-from django.core.exceptions import ValidationError
-
+from django.conf import settings
 
 class Entry(models.Model):
     # the long url given
@@ -14,9 +13,10 @@ class Entry(models.Model):
     # how many times the short url was used
     num_hits = models.IntegerField(default=0, editable=False)
 
-    def __unicode__(self):
-        return u'%d' % self.id
-
     def getlink(self):
         "returns the html link for the short URL"
-        return 'r/%d/' % self.id
+        link = '%s/r/%d/' % (settings.SITE_URL, self.id)
+        return '<a href="%s">%s</a>' % (link, link)
+
+    def __unicode__(self):
+        return u'%d' % self.id

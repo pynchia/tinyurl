@@ -5,25 +5,18 @@
   <title>Yet another URL shortener</title>
   <meta name="description" content="Yet another URL shortener">
   <meta name="author" content="Pynchia">
-
-  <!-->
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
-  <!-->
-
-  <!--[if lt IE 9]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
 </head>
-
 <body>
-  <!-->
-  <script src="js/scripts.js"></script>
-  <!-->
 
   <h1>Please type your URL below:</h1>
 
   <form enctype="multipart/form-data" method='POST' action=''>
    {% csrf_token %}
+   {% if object %}
+	<p>The URL you have provided has been shortened already:
+	   <a href="http://localhost:8000/{{ object.id }}">localhost:8000/{{ object.id }}</a>
+	</p>
+   {% endif %}
    {{ form.as_p }}
    <p>
     <input type="submit" name="submit" id="submit" value="Submit"/>
