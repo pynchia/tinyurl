@@ -125,4 +125,6 @@ EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = 587
 
-SITE_URL = 'http://localhost:8000'
+# the default for the TDD/BDD
+SITE_URL = 'http://localhost:8081'
+
