@@ -5,10 +5,10 @@ urlpatterns = [
     url(r'^$',
         views.HomePageView.as_view(),
         name='home'),
-    url(r'^showurl/(?P<slug>\w+)/$',
+    url(r'^showurl/(?P<pk>\d+)/$',
         views.ShowURLView.as_view(),
         name='showurl'),
-    url(r'^r/(?P<slug>\w+)/$',
+    url(r'^r/(?P<pk>\d+)/$',
         views.RedirectToURLView.as_view(),
         name='redirecttourl'),
 ]
