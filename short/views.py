@@ -9,7 +9,9 @@ class HomePageView(generic.CreateView):
     model = Entry
     form_class = EntryForm
     template_name = "short/home.html"
-    success_url = reverse_lazy('showurl')
+
+    def get_success_url(self):
+        return reverse_lazy('short:showurl', kwargs={'pk': self.object.id})
 
 
 class ShowURLView(generic.DetailView):

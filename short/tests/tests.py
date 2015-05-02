@@ -24,3 +24,17 @@ class MyTestCase(TestCase):
     def test_get_home_page(self):
         self.get_page_200('short:home')
 
+    def test_posturl_once(self):
+        response = self.client.post(reverse('short:home'),
+                                    data={'url': 'https://docs.djangoproject.com/en/dev/topics/testing/tools/#django.test.LiveServerTestCase'},
+                                    follow=True)
+
+    def test_post_sameurl_twice(self):
+        response = self.client.post(reverse('short:home'),
+                                    data={'url': 'https://docs.djangoproject.com/en/dev/topics/testing/tools/#django.test.LiveServerTestCase'})
+        response = self.client.post(reverse('short:home'),
+                                    data={'url': 'https://docs.djangoproject.com/en/dev/topics/testing/tools/#django.test.LiveServerTestCase'})
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('That URL has been shortened already',
+                      response.content)
+
