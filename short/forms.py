@@ -1,3 +1,4 @@
+from urlparse import urlsplit, urlunsplit
 from django import forms
 #from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext as _
@@ -12,18 +13,19 @@ class EntryForm(forms.ModelForm):
         fields = ['url', ]
 
     def clean_url(self):
-        url = self.cleaned_data['url']
+        # remove redundant delimiters
+        url = urlunsplit(urlsplit(self.cleaned_data['url']))
         try:
             entry = Entry.objects.get(url=url)
         except Entry.DoesNotExist:
             pass
         else:
             raise forms.ValidationError(
-                    mark_safe(
-                        'That URL has been shortened already: '+
-                        entry.getlink()
-                    )
-                  )
+                            mark_safe(
+                                'That URL has been shortened already: '+
+                                entry.getlink()
+                            )
+                        )
             # raise forms.ValidationError(
             #         _('The URL has been shortened already: %(link)s'),
             #         code='invalid',
