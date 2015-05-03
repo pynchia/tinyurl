@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+
 class Entry(models.Model):
     # the long url given
     # url = models.URLField(unique=True,
@@ -13,7 +14,7 @@ class Entry(models.Model):
     # how many times the short url was used
     num_hits = models.IntegerField(default=0, editable=False)
 
-    def getlink(self):
+    def get_link(self):
         "returns the html link for the short URL"
         link = '%s/r/%d/' % (settings.SITE_URL, self.id)
         return '<a href="%s">%s</a>' % (link, link)

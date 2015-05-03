@@ -28,10 +28,11 @@ class MyTestCase(TestCase):
         response = self.client.post(reverse('short:home'),
                                     data={'url': 'https://docs.djangoproject.com/en/dev/topics/testing/tools/#django.test.LiveServerTestCase'},
                                     follow=True)
+        self.assertEqual(response.status_code, 200)
 
     def test_post_sameurl_twice(self):
-        response = self.client.post(reverse('short:home'),
-                                    data={'url': 'https://docs.djangoproject.com/en/dev/topics/testing/tools/#django.test.LiveServerTestCase'})
+        self.client.post(reverse('short:home'),
+                         data={'url': 'https://docs.djangoproject.com/en/dev/topics/testing/tools/#django.test.LiveServerTestCase'})
         response = self.client.post(reverse('short:home'),
                                     data={'url': 'https://docs.djangoproject.com/en/dev/topics/testing/tools/#django.test.LiveServerTestCase'})
         self.assertEqual(response.status_code, 200)

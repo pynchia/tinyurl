@@ -18,6 +18,11 @@ class ShowURLView(generic.DetailView):
     model = Entry
     template_name = "short/showurl.html"
 
+    def get_context_data(self, **kwargs):
+        context = super(ShowURLView, self).get_context_data(**kwargs)
+        context['short_url'] = self.object.get_link()
+        return context
+
 
 class RedirectToURLView(generic.RedirectView):
     # it should be True, so the browser can go straight to it

@@ -23,7 +23,7 @@ class EntryForm(forms.ModelForm):
             raise forms.ValidationError(
                             mark_safe(
                                 'That URL has been shortened already: '+
-                                entry.getlink()
+                                entry.get_link()
                             )
                         )
             # raise forms.ValidationError(
