@@ -1,16 +1,16 @@
 from behave import *
 
 
-@given(u'I call the api properly')
-def impl(context):
+@given(u'I have obtained a short URL already')
+def obtain_short_url(context):
     assert False
 
 
-@when(u'I post a URL to the server')
-def impl(context):
+@when(u'I use the short URL (e.g. clicking on a link)')
+def access_short_url(context):
     assert False
 
 
-@then(u'I will receive the resulting shorter URL')
-def impl(context):
+@then(u'I will be redirected to the original URL')
+def redirected_to_original_url(context):
     assert False

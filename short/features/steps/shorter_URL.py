@@ -11,7 +11,7 @@ def go_to_homepage(context):
 
 
 @when(u'I post the URL in the form')
-def post_long_url(context):
+def post_long_url_via_form(context):
     context.browser.find_element_by_id('id_url').send_keys(url1)
     context.browser.find_element_by_id('submit').click()
 
@@ -20,5 +20,20 @@ def post_long_url(context):
 def see_short_url(context):
     entry = Entry.objects.get(url=url1)
     context.browser.find_element_by_link_text(
-            'http://localhost:8081/r/%d/' % entry.id)
+                            'http://localhost:8081/r/%d/' % entry.id)
+
+
+@given(u'I call the api properly')
+def call_API_properly(context):
+    pass
+
+
+@when(u'I post the URL to the server')
+def post_long_url_via_REST_API(context):
+    assert False
+
+
+@then(u'I will receive the resulting shorter URL')
+def receive_short_url(context):
+    assert False
 

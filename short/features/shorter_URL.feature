@@ -1,7 +1,7 @@
 Feature: Shorter URL
 		As an anonymous user
-		I want to be able to obtain a uri shorter than the one I give
-		So that I can save typing/space and use it on twitter
+		I want to be able to obtain a url shorter than the one I give
+		So that I can save typing/space/use it on twitter
 
 		Scenario: through a webpage, obtain a shorter URL
 				Given I go the the homepage
