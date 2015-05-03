@@ -6,11 +6,20 @@ from short.models import Entry
 
 
 class MyTestCase(TestCase):
-    # fixtures = ['xyz', ]
 
+    @classmethod
+    def setUpTestData(cls):
+        cls.url1 = 'https://www.python.org/dev/peps/pep-0020/'
+        cls.entry1 = Entry.objects.create(url=cls.url1)
+
+        cls.url2 = 'https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.create'
+        cls.entry2 = Entry.objects.create(url=cls.url2)
+
+        cls.url3 = 'http://stackoverflow.com/questions/tagged/python'
+
+    # fixtures = ['xyz', ]
     # def setUp(self):
     #     pass
-
     # def tearDown(self):
     #     pass
 
@@ -26,16 +35,23 @@ class MyTestCase(TestCase):
 
     def test_posturl_once(self):
         response = self.client.post(reverse('short:home'),
-                                    data={'url': 'https://docs.djangoproject.com/en/dev/topics/testing/tools/#django.test.LiveServerTestCase'},
+                                    data={'url': self.url3},
                                     follow=True)
         self.assertEqual(response.status_code, 200)
+        self.assertIn(self.url3, response.content)
 
     def test_post_sameurl_twice(self):
         self.client.post(reverse('short:home'),
-                         data={'url': 'https://docs.djangoproject.com/en/dev/topics/testing/tools/#django.test.LiveServerTestCase'})
+                         data={'url': self.url3})
         response = self.client.post(reverse('short:home'),
-                                    data={'url': 'https://docs.djangoproject.com/en/dev/topics/testing/tools/#django.test.LiveServerTestCase'})
+                                    data={'url': self.url3})
         self.assertEqual(response.status_code, 200)
         self.assertIn('That URL has been shortened already',
                       response.content)
+
+    def test_show_url(self):
+        # get the first one
+        response = self.get_page_200('short:showurl',
+                                     kwargs={'pk': self.entry1.id})
+        self.assertIn(self.entry1.url, response.content)
 

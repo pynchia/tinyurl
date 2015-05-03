@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Yet another URL shortener</title>
+  <meta name="description" content="Yet another URL shortener">
+  <meta name="author" content="pynchia">
+</head>
+<body>
+
+  <h2>
+   The URL
+   {{ short_url|safe }}
+  </h2>
+  <h3>
+   now redirects to
+   {{ object.url }}
+  </h3>
+  <h3>
+	  Since {{ object.created_on }}, it has been hit {{ object.num_hits }} times
+  </h3>
+  </form>
+
+</body>
+</html>
