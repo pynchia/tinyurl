@@ -59,7 +59,7 @@ class MyTestCase(TestCase):
 
     def test_redirect_fails(self):
         #if the short url has not been created yet, redirect to homepage
-        response = self.client.get('http://localhost:8081/r/11/')
+        response = self.client.get('http://localhost:8081/r/666/')
         self.assertRedirects(response, reverse('short:home'))
 
     def test_url_hits(self):

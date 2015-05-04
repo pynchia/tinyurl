@@ -1,39 +1,26 @@
 from behave import *
 from short.models import Entry
 
-url1 = 'https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.create'
+
+@given(u'"{long_url}" has no short url')
+def step_impl(context, long_url):
+    try:
+        Entry.objects.get(url=long_url)
+    except Entry.DoesNotExist:
+        pass
+    else:
+        assert False, "url % exists already" % long_url
 
 
-@given(u'I go the the homepage')
-def go_to_homepage(context):
+@when(u'I post the "{long_url}" URL in the homepage form')
+def step_impl(context, long_url):
     context.browser.get(context.HOMEPAGE)
-    assert "URL shortener" in context.browser.title
-
-
-@when(u'I post the URL in the form')
-def post_long_url_via_form(context):
-    context.browser.find_element_by_id('id_url').send_keys(url1)
+    context.browser.find_element_by_id('id_url').send_keys(long_url)
     context.browser.find_element_by_id('submit').click()
 
 
-@then(u'I will see the resulting shorter URL')
-def see_short_url(context):
-    entry = Entry.objects.get(url=url1)
-    context.browser.find_element_by_link_text(
-                            entry.get_link())
-
-
-# @given(u'I call the api properly')
-# def call_API_properly(context):
-#     pass
-
-
-@when(u'I post the URL to the server')
-def post_long_url_via_REST_API(context):
-    assert False
-
-
-@then(u'I will receive the resulting shorter URL')
-def receive_short_url(context):
-    assert False
+@then(u'the page will show the short URL for "{long_url}"')
+def step_impl(context, long_url):
+    entry = Entry.objects.get(url=long_url)
+    context.browser.find_element_by_link_text(entry.get_link())
 
