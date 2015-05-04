@@ -12,7 +12,7 @@ class MyTestCase(TestCase):
         cls.url1 = 'https://www.python.org/dev/peps/pep-0020/'
         cls.entry1 = Entry.objects.create(url=cls.url1)
 
-        cls.url2 = 'https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.create'
+        cls.url2 = 'https://docs.djangoproject.com/en/dev/topics/testing/tools/'
         cls.entry2 = Entry.objects.create(url=cls.url2)
 
         cls.url3 = 'http://stackoverflow.com/questions/tagged/python'
@@ -54,4 +54,14 @@ class MyTestCase(TestCase):
         response = self.get_page_200('short:showurl',
                                      kwargs={'pk': self.entry1.id})
         self.assertIn(self.entry1.url, response.content)
+
+        # cannot test external redirects. Use BDD instead
+
+    def test_redirect_fails(self):
+        #if the short url has not been created yet, redirect to homepage
+        response = self.client.get('http://localhost:8081/r/11/')
+        self.assertRedirects(response, reverse('short:home'))
+
+    def test_url_hits(self):
+        self.fail('not over yet')
 

@@ -17,7 +17,8 @@ class Entry(models.Model):
     def get_link(self):
         "returns the html link for the short URL"
         link = '%s/r/%d/' % (settings.SITE_URL, self.id)
-        return '<a href="%s">%s</a>' % (link, link)
+        # return '<a id="id_short_url" href="%s">%s</a>' % (link, link)
+        return link
 
     def __unicode__(self):
         return u'%d' % self.id

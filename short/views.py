@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views import generic
 from .models import Entry
 from .forms import EntryForm
@@ -25,9 +25,16 @@ class ShowURLView(generic.DetailView):
 
 
 class RedirectToURLView(generic.RedirectView):
-    # it should be True, so the browser can go straight to it
+    # it should be True, so the browser can go straight to it next time
     permanent = False
 
     # TBD find out what method gets the destination
-    def get_pattern_name(self):
-        pass
+    def get_redirect_url(self, pk):
+        try:
+            entry = Entry.objects.get(pk=pk)
+        except Entry.DoesNotExist:
+            # I should check if the request comes from a browser
+            # if not then return an error instead of redirecting
+            return reverse('short:home')
+        else:
+            return entry.url

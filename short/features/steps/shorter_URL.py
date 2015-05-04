@@ -6,7 +6,7 @@ url1 = 'https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.mo
 
 @given(u'I go the the homepage')
 def go_to_homepage(context):
-    context.browser.get(context.server_url)
+    context.browser.get(context.HOMEPAGE)
     assert "URL shortener" in context.browser.title
 
 
@@ -20,12 +20,12 @@ def post_long_url_via_form(context):
 def see_short_url(context):
     entry = Entry.objects.get(url=url1)
     context.browser.find_element_by_link_text(
-                            'http://localhost:8081/r/%d/' % entry.id)
+                            entry.get_link())
 
 
-@given(u'I call the api properly')
-def call_API_properly(context):
-    pass
+# @given(u'I call the api properly')
+# def call_API_properly(context):
+#     pass
 
 
 @when(u'I post the URL to the server')
