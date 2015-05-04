@@ -12,7 +12,7 @@ def step_impl(context, long_url):
         assert False, "url % exists already" % long_url
 
 
-@when(u'I post the "{long_url}" URL in the homepage form')
+@when(u'I post "{long_url}" in the homepage form')
 def step_impl(context, long_url):
     context.browser.get(context.HOMEPAGE)
     context.browser.find_element_by_id('id_url').send_keys(long_url)
