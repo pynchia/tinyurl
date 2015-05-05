@@ -7,20 +7,30 @@
   <meta name="author" content="pynchia">
 </head>
 <body>
-
+{% if entry %}
   <h2>
    The short URL
    <a id="id_short_url" href="{{ short_url|safe }}">{{ short_url|safe }}</a>
   </h2>
   <h3>
-   now redirects to
-   {{ object.url }}
+   redirects to
+   {{ entry.url }}
   </h3>
   <h3>
-   Since {{ object.created_on }},
-   it has been hit <span id="id_num_hits">{{ object.num_hits }}</span> times
+   Since {{ entry.created_on }},
+   it has been hit <span id="id_num_hits">{{ entry.num_hits }}</span> times
   </h3>
-  </form>
-
+{% else %}
+  <h2>
+   <p>
+   Uh-Oh, the short URL <span id="id_error">{{ view.request.get_full_path }}</span> does not exist yet.
+   </p>
+   <p>
+   Please go to the
+   <a href="{% url 'short:home' %}">homepage</a>
+   and create it.
+   </p>
+  </h2>
+{% endif %}
 </body>
 </html>

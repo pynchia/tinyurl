@@ -125,6 +125,10 @@ EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = 587
 
-# the default for the TDD/BDD
-SITE_URL = 'http://localhost:8081'
+import socket
+try:
+        HOSTNAME = socket.gethostname()
+except:
+        HOSTNAME = 'localhost'
+SITE_URL = 'http://%s:8081' % HOSTNAME
 

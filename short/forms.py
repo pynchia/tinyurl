@@ -14,18 +14,15 @@ class EntryForm(forms.ModelForm):
 
     def clean_url(self):
         # remove redundant delimiters
-        url = urlunsplit(urlsplit(self.cleaned_data['url']))
+        url = urlunsplit(urlsplit(self.cleaned_data['url'].lower()))
         try:
             entry = Entry.objects.get(url=url)
         except Entry.DoesNotExist:
             pass
         else:
-            raise forms.ValidationError(
-                            mark_safe(
-                                'That URL has been shortened already: '+
-                                entry.get_link()
-                            )
-                        )
+            link = entry.get_link()
+            msg = 'That URL has been shortened already: <a href="%s">%s</a>' % (link, link)
+            raise forms.ValidationError(mark_safe(msg))
             # raise forms.ValidationError(
             #         _('The URL has been shortened already: %(link)s'),
             #         code='invalid',

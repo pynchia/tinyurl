@@ -1,3 +1,4 @@
+# from django import http
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views import generic
 from .models import Entry
@@ -14,13 +15,18 @@ class HomePageView(generic.CreateView):
         return reverse_lazy('short:showurl', kwargs={'pk': self.object.id})
 
 
-class ShowURLView(generic.DetailView):
-    model = Entry
+class ShowURLView(generic.TemplateView):
     template_name = "short/showurl.html"
 
     def get_context_data(self, **kwargs):
         context = super(ShowURLView, self).get_context_data(**kwargs)
-        context['short_url'] = self.object.get_link()
+        try:
+            entry = Entry.objects.get(pk=kwargs['pk'])
+        except Entry.DoesNotExist:
+            pass
+        else:
+            context.update({'short_url': entry.get_link(),
+                            'entry': entry})
         return context
 
 
@@ -33,8 +39,8 @@ class RedirectToURLView(generic.RedirectView):
         try:
             entry = Entry.objects.get(pk=pk)
         except Entry.DoesNotExist:
-            # I should check if the request comes from a browser
-            # if not then return an error instead of redirecting
             return reverse('short:home')
         else:
+            entry.num_hits += 1
+            entry.save()
             return entry.url

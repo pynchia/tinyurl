@@ -20,9 +20,10 @@ def step_impl(context, long_url):
 @then(u'the number of hits of the short URL id "{url_id}" will increase')
 def step_impl(context, url_id):
     "it expects to find a context.entry obj"
-    context.browser.get("http://localhost:8081/r/%s/" % url_id)
-    num_hits_on_page = context.browser.find_element_by_id('id_num_hits')
-    assert num_hits_on_page == context.entry.num_hits+1
+    context.browser.get("http://localhost:8081/showurl/%s/" % url_id)
+    num_hits_on_page = context.browser.find_element_by_id('id_num_hits').text
+    assert (num_hits_on_page == str(context.entry.num_hits+1)), "%s ***vs*** %s" % (num_hits_on_page, str(context.entry.num_hits))
+
 # ----------
 
 
