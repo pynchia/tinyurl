@@ -1,5 +1,5 @@
 Feature: Homepage
 	Scenario: homepage is displayed correctly
-		Given I go to the homepage
-		Then the homepage shows a form for creating a new short URL
-		And the homepage shows a form for searching existing URLs
+		When I go to the page "http://localhost:8081/"
+		Then the page shows a form for creating a new short URL
+		And the page shows a form for searching existing URLs

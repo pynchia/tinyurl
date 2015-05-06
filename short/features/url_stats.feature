@@ -5,11 +5,11 @@ Feature: Show URL stats
 
 	Scenario: obtain the stats of an existing short URL
 		Given the short URL id "5" exists
-		When I ask for the stats of short URL "http://localhost:8081/showurl/5/"
+		When I go to the page "http://localhost:8081/showurl/5/"
 		Then the page will show the stats of short URL id "5"
 
 	Scenario: obtain the stats of a missing short URL
 		Given the short URL id "666" is missing
-		When I ask for the stats of short URL "http://localhost:8081/showurl/666/"
+		When I go to the page "http://localhost:8081/showurl/666/"
 		Then the page will show an error about short URL "http://localhost:8081/showurl/666/"
 
