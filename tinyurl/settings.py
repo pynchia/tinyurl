@@ -125,10 +125,11 @@ EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = 587
 
-import socket
-try:
-        HOSTNAME = socket.gethostname()
-except:
-        HOSTNAME = 'localhost'
+#import socket
+#try:
+#        HOSTNAME = socket.gethostname()
+#except:
+#        HOSTNAME = 'localhost'
+HOSTNAME = 'localhost'
 SITE_URL = 'http://%s:8081' % HOSTNAME
 

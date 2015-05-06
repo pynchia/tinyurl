@@ -3,14 +3,17 @@ Feature: Redirect short URL
 		I want to be able to use a short URL
 		So that I can reach my target (through redirection)
 
-	Scenario: use an existing short URL
-		# Given "http://pythonhosted.org/behave/tutorial.html#python-step-implementations" has a short URL
-		Given the set of URLs are in the DB
-			| url |
+	Scenario Outline: use an existing short URL
+		Given the set of URLs are added to the DB
+			| url        |
+			| <long_url> | 
+		When I use the short URL of long URL "<long_url>"
+		Then I will be redirected to "<long_url>"
+		And the number of hits of the long URL "<long_url>" will be "1"
+
+		Examples: long URLs
+			| long_url |
 			| http://pythonhosted.org/behave/tutorial.html#python-step-implementations |
-		When I use the short URL of long URL "http://pythonhosted.org/behave/tutorial.html#python-step-implementations"
-		Then I will be redirected to "http://pythonhosted.org/behave/tutorial.html#python-step-implementations"
-		And the number of hits of the short URL id "5" will increase
 
 	Scenario: use a missing short URL(web)
 		Given the short URL id "666" is missing

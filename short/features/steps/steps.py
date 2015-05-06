@@ -1,16 +1,16 @@
+#import time
 from behave import *
 from urlparse import urlsplit
 from short.models import Entry
 
 
-@given(u'the set of URLs are in the DB')
+@given(u'the set of URLs are added to the DB')
 def impl(context):
     for row in context.table:
-        entry = Entry.objects.create(row['url'])
-        row['pk'] = entry.pk
+        entry = Entry.objects.create(url=row['url'])
 
 
-@given(u'"{long_url}" has a short url')
+@given(u'"{long_url}" has a short URL')
 def step_impl(context, long_url):
     context.entry = Entry.objects.get(url=long_url)
 
@@ -40,29 +40,45 @@ def step_impl(context, url_id):
         assert False, "short url with id=% exists already" % url_id
 
 
+@when(u'I go to the homepage')
+def step_impl(context):
+    context.browser.get(context.HOMEPAGE)
+
+
 @when(u'I go to the page "{url}"')
 def step_impl(context, url):
     context.browser.get(url)
 
 
+@when(u'I use the short URL of long URL "{long_url}"')
+def step_impl(context, long_url):
+    entry = Entry.objects.get(url=long_url)
+    context.browser.get(entry.get_link())
+
+
+@then(u'I will be redirected to "{long_url}"')
+def step_impl(context, long_url):
+    assert context.browser.current_url == long_url, "%s **vs** %s" % (context.browser.current_url, long_url)
+
+
 @then(u'the page shows a form for creating a new short URL')
 def impl(context):
-        assert False
+    context.browser.find_element_by_name('id_create_form')
 
 
 @then(u'the page shows a form for searching existing URLs')
 def impl(context):
-        assert False
+    context.browser.find_element_by_id('id_search_form')
 
 
 @when(u'I post "python" in the search form')
 def impl(context):
-        assert False
+    assert False
 
 
 @then(u'the page will show "{num_entries}" entries containing "{keyword}"')
 def impl(context):
-        assert False
+    assert False
 
 
 @then(u'each entry will show a link to its stats page')
@@ -83,17 +99,10 @@ def step_impl(context, long_url):
     context.browser.find_element_by_link_text(entry.get_link())
 
 
-@then(u'I will be redirected to "{long_url}"')
-def step_impl(context, long_url):
-    assert context.browser.current_url == long_url
-
-
-@then(u'the number of hits of the short URL id "{url_id}" will increase')
-def step_impl(context, url_id):
-    "it expects to find a context.entry obj"
-    context.browser.get("http://localhost:8081/showurl/%s/" % url_id)
-    num_hits_on_page = context.browser.find_element_by_id('id_num_hits').text
-    assert (num_hits_on_page == str(context.entry.num_hits+1)), "%s ***vs*** %s" % (num_hits_on_page, str(context.entry.num_hits))
+@then(u'the number of hits of the long URL "{long_url}" will be "{num_hits}"')
+def step_impl(context, long_url, num_hits):
+    entry = Entry.objects.get(url=long_url)
+    assert str(entry.num_hits) == num_hits
 
 
 @then(u'I will be redirected to the homepage')
