@@ -7,9 +7,10 @@ def before_all(context):
     context.browser.implicitly_wait(3)
     context.HOMEPAGE = 'http://localhost:8081/'
 
-    entry = Entry.objects.create(
-                    url="http://stackoverflow.com/questions/tagged/python")
-    # context.exist_entry_id = entry.id
+    Entry.objects.create(
+                    url="http://pythonhosted.org/behave/tutorial.html#python-step-implementations")
+    Entry.objects.create(
+                    url="http://selenium-python.readthedocs.org/en/latest/getting-started.html")
 
 
 def after_all(context):
