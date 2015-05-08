@@ -3,10 +3,12 @@ from django.conf import settings
 
 
 class Entry(models.Model):
+
+    NUM_ENTRIES_PER_PAGE = 4
+
     # the long url given
     # url = models.URLField(unique=True,
-    url = models.URLField(
-                          help_text='the URL you want to shorten')
+    url = models.URLField(help_text='the URL you want to shorten')
     # the short url is going to be the id itself
     # so no other field is necessary now
 

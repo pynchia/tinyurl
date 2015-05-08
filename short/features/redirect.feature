@@ -13,7 +13,7 @@ Feature: Redirect short URL
 
 		Examples: long URLs
 			| long_url |
-			| http://pythonhosted.org/behave/tutorial.html#python-step-implementations |
+			| https://docs.djangoproject.com/en/1.8/topics/http/urls/ |
 
 	Scenario: use a missing short URL(web)
 		Given the short URL id "666" is missing

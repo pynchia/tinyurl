@@ -49,6 +49,15 @@ class MyTestCase(TestCase):
         self.assertIn('That URL has been shortened already',
                       response.content)
 
+    def test_get_search_page(self):
+        self.get_page_200('short:searchurl')
+
+    def test_search_url(self):
+        response = self.client.get(reverse('short:searchurl'),
+                                   data={'substring': 'python'})
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('1 total matches', response.content)
+
     def test_show_url(self):
         # get the first one
         response = self.get_page_200('short:showurl',

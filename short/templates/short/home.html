@@ -8,9 +8,8 @@
 </head>
 <body>
 
-  <h1>Please type your URL below</h1>
-
-  <form enctype="multipart/form-data" method='POST' action=''>
+  <h2>Please type your URL below</h2>
+  <form id="id_create_form" enctype="multipart/form-data" method='POST' action=''>
    {% csrf_token %}
    {{ form.as_p }}
    <p>
@@ -18,5 +17,11 @@
    </p>
   </form>
 
+  <br>
+
+  <h2>
+   <a href="{% url 'short:searchurl' %}">click here to search for URLs</a>
+  </h2>
+ 
 </body>
 </html>

@@ -63,22 +63,27 @@ def step_impl(context, long_url):
 
 @then(u'the page shows a form for creating a new short URL')
 def impl(context):
-    context.browser.find_element_by_name('id_create_form')
+    context.browser.find_element_by_id('id_create_form')
 
 
-@then(u'the page shows a form for searching existing URLs')
+@then(u'the page shows a link to search for URLs')
 def impl(context):
-    context.browser.find_element_by_id('id_search_form')
+    context.browser.find_element_by_link_text('click here to search for URLs')
 
 
-@when(u'I post "python" in the search form')
-def impl(context):
-    assert False
+@when(u'I post "{substring}" in the search form')
+def impl(context, substring):
+    context.browser.find_element_by_id('id_substring').send_keys(substring)
+    context.browser.find_element_by_id('submit').click()
 
 
-@then(u'the page will show "{num_entries}" entries containing "{keyword}"')
-def impl(context):
-    assert False
+@then(u'the page will show "{num_entries}" entries containing "{substring}"')
+def impl(context, num_entries, substring):
+    url_ol = context.browser.find_element_by_id('id_url_list')
+    list_elements = url_ol.find_elements_by_tag_name("li")
+    assert len(list_elements) == int(num_entries), \
+                                "%d entries on page ***vs*** %s expected" % \
+                                (len(list_elements), num_entries)
 
 
 @then(u'each entry will show a link to its stats page')

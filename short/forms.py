@@ -29,3 +29,11 @@ class EntryForm(forms.ModelForm):
             #         params={'link': entry.getlink(), })
         return url
 
+
+class SearchForm(forms.Form):
+    substring = forms.CharField(required=False,
+                                help_text='contained in long URL')
+
+    def filter_by(self):
+        return {'url__contains': self.cleaned_data['substring'].lower()}
+

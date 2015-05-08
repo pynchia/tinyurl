@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Yet another URL shortener</title>
+  <meta name="description" content="Yet another URL shortener">
+  <meta name="author" content="Pynchia">
+</head>
+<body>
+
+  <h2>Please type your substring below</h2>
+  <form id="id_search_form" enctype="multipart/form-data" method='GET' action=''>
+   {{ view.form.as_p }}
+   <p>
+    <input type="submit" name="submit" id="submit" value="Submit"/>
+   </p>
+  </form>
+ 
+  {% if matching_urls %}
+  <h2>{{ page_obj.paginator.count }} total matches present in the system:</h2>
+  <ol id="id_url_list">
+  {% for entry in matching_urls %}
+   <li>
+    <p>URL: <a href="{{ entry.url }}">{{ entry.url }}</a></p>
+    <p>short URL: <a href="{{ entry.get_link }}">{{ entry.get_link }}</a></p>
+    <p>Created on: {{ entry.created_on }}</p>
+    <p>Num.hits: {{ entry.num_hits }}</p>
+   </li>
+  {% endfor %}
+  </ol>
+  {% endif %}
+
+</body>
+</html>
