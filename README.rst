@@ -1,3 +1,3 @@
 TinyURL
-A server to shorten URLs. Simple prj for using BDD (django-behave)
+A server to shorten URLs. BDD/TDD prj with Selenium & django-behave
 
