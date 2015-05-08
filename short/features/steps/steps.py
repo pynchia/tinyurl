@@ -79,8 +79,8 @@ def impl(context, substring):
 
 @then(u'the page will show "{num_entries}" entries containing "{substring}"')
 def impl(context, num_entries, substring):
-    url_ol = context.browser.find_element_by_id('id_url_list')
-    list_elements = url_ol.find_elements_by_tag_name("li")
+    url_list = context.browser.find_element_by_id('id_url_list')
+    list_elements = url_list.find_elements_by_tag_name("li")
     assert len(list_elements) == int(num_entries), \
                                 "%d entries on page ***vs*** %s expected" % \
                                 (len(list_elements), num_entries)

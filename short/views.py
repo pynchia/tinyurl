@@ -31,13 +31,13 @@ class SearchURLView(generic.edit.FormMixin, generic.ListView):
     def get_queryset(self):
         # only is_valid is necessary if url field is req
         if self.form.is_valid() and self.request.GET.get('substring', None) is not None:
-            return Entry.objects.filter(**self.form.filter_by())
+            return Entry.objects.filter(**self.form.filter_by()).order_by('url')
         # otherwise an empty queryset
         return Entry.objects.none()
 
     def get(self, *args, **kwargs):
-        # if I assign it to the view instance it appears in the context
-        # under view (i.e. get_context_data adds the view to the context)
+        # if I assign the form to the view instance it appears in the context
+        # under view (get_context_data adds the view to the context)
         self.form = self.get_form(self.get_form_class())
         return super(SearchURLView, self).get(*args, **kwargs)
 

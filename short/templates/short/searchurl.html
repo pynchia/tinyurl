@@ -18,7 +18,7 @@
  
   {% if matching_urls %}
   <h2>{{ page_obj.paginator.count }} total matches present in the system:</h2>
-  <ol id="id_url_list">
+  <ul id="id_url_list">
   {% for entry in matching_urls %}
    <li>
     <p>URL: <a href="{{ entry.url }}">{{ entry.url }}</a></p>
@@ -27,8 +27,22 @@
     <p>Num.hits: {{ entry.num_hits }}</p>
    </li>
   {% endfor %}
-  </ol>
+  </ul>
   {% endif %}
+  {% if page_obj.paginator.num_pages > 1 %}
+  <div class="pagination">
+   Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}&nbsp
+   {% if page_obj.has_previous %}
+   <a href="?page=1&substring={{ view.form.substring.value }}">first</a>
+   <a href="?page={{ page_obj.previous_page_number }}&substring={{ view.form.substring.value }}">prev.</a>
+   {% endif %}
+   {% if page_obj.has_next %}
+   <a href="?page={{ page_obj.next_page_number }}&substring={{ view.form.substring.value }}">next</a>
+   <a href="?page={{ page_obj.paginator.num_pages }}&substring={{ view.form.substring.value }}">last</a>
+   {% endif %}
+  </div>
+  {% endif %}
+  <br>
 
 </body>
 </html>
