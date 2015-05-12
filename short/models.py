@@ -22,9 +22,8 @@ class Entry(models.Model):
         return link
 
     def get_absolute_url(self):
-        # TBC if we can use reverse('entry-detail', kwargs={'pk': self.id})
-        # TBC double-check the kwargs, maybe use args instead
-        return '/api/entries/%d/' % self.id
+        # TBC can I use rf's reverse('entry-detail', args=(self.id,), request)
+        return '%s/api/entries/%d/' % (settings.SITE_URL, self.id)
 
     def __unicode__(self):
         return u'%d' % self.id
