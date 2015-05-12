@@ -42,9 +42,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 )
-INSTALLED_APPS += ("debug_toolbar", )
-INSTALLED_APPS += ("django_behave", )
-INSTALLED_APPS += ("short", )
+INSTALLED_APPS += ('debug_toolbar', )
+INSTALLED_APPS += ('django_behave', )
+INSTALLED_APPS += ('rest_framework', )
+INSTALLED_APPS += ('short', )
 
 #TEST_RUNNER = 'django_behave.runner.DjangoBehaveTestSuiteRunner'
 

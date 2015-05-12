@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'', include('short.urls', 
                      namespace='short',
                      app_name='short')),
+    url(r'^api/', include('api.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]
