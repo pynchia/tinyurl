@@ -4,7 +4,7 @@ from django.conf import settings
 
 class Entry(models.Model):
 
-    NUM_ENTRIES_PER_PAGE = 4
+    NUM_ENTRIES_PER_PAGE = settings.REST_FRAMEWORK['PAGE_SIZE']
 
     # the long url given
     # url = models.URLField(unique=True,

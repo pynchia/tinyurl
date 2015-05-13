@@ -135,5 +135,5 @@ HOSTNAME = 'localhost'
 SITE_URL = 'http://%s:8081' % HOSTNAME
 
 REST_FRAMEWORK = {
-        'PAGE_SIZE': 4
+        'PAGE_SIZE': 10,
        }
