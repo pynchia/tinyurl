@@ -15,7 +15,7 @@ class EntryViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.EntrySerializer
 
     def get_queryset(self):
-        substring = self.request.QUERY_PARAMS.get('url', None)
+        substring = self.request.query_params.get('url', None)
         if substring is not None:
             return self.queryset.filter(url__contains=substring.lower())
         return self.queryset
